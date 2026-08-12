@@ -1,0 +1,18 @@
+Frontend Developer Internship
+
+We are looking for a Frontend Developer Intern to join our team.
+
+Requirements:
+- Strong knowledge of HTML, CSS, JavaScript
+- Experience with React.js
+- Familiarity with Git/GitHub version control
+- Understanding of REST APIs and how to integrate them
+- Basic knowledge of TypeScript is a plus
+- Experience with Docker for containerization is a plus
+- Good communication skills
+
+Responsibilities:
+- Build and maintain UI components
+- Collaborate with backend team on API integration
+- Write clean, maintainable code
+- Participate in code reviews

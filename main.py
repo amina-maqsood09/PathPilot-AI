@@ -1,6 +1,7 @@
-from app.agent import ask_pathpilot, ask_pathpilot_with_notes
+from app.agent import ask_pathpilot, ask_pathpilot_with_notes, ask_pathpilot_career
 from app.memory import record_mistake, mark_as_improved, get_weak_topics
 from app.study import list_notes, load_note
+from app.career import list_job_descriptions, load_job_description
 
 
 def print_help():
@@ -9,6 +10,8 @@ def print_help():
     print("  'notes'                          -> list available study notes")
     print("  'study: <filename> | <question>' -> ask a question using a specific note")
     print("  'quiz: <filename>'                -> generate a quiz from a note")
+    print("  'jobs'                           -> list available job descriptions")
+    print("  'career: <filename>'             -> compare your profile against a job description")
     print("  'mistake: <topic> | <concept>'   -> log a mistake")
     print("  'improved: <topic> | <concept>'  -> mark a concept as improved")
     print("  'weak topics'                    -> list current weak topics")
@@ -39,6 +42,17 @@ def main():
                 print("\nPathPilot: Available notes:")
                 for n in notes:
                     print(f"  - {n}")
+                print()
+            continue
+
+        if user_input.lower() == "jobs":
+            jobs = list_job_descriptions()
+            if not jobs:
+                print("\nPathPilot: No job descriptions found in data/career/. Add a .txt file there.\n")
+            else:
+                print("\nPathPilot: Available job descriptions:")
+                for j in jobs:
+                    print(f"  - {j}")
                 print()
             continue
 
@@ -101,6 +115,19 @@ def main():
             print("\nPathPilot is generating a quiz...\n")
             quiz_question = "Generate 3 short quiz questions (with answers) based on this material to test my understanding."
             answer = ask_pathpilot_with_notes(quiz_question, note_content)
+            print(f"PathPilot: {answer}\n")
+            continue
+
+        if user_input.lower().startswith("career:"):
+            filename = user_input.split("career:", 1)[1].strip()
+            job_desc = load_job_description(filename)
+
+            if job_desc is None:
+                print(f"\nPathPilot: Couldn't find '{filename}' in data/career/. Type 'jobs' to see available files.\n")
+                continue
+
+            print("\nPathPilot is analyzing this opportunity...\n")
+            answer = ask_pathpilot_career(job_desc)
             print(f"PathPilot: {answer}\n")
             continue
 

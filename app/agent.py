@@ -69,3 +69,44 @@ User's question: {user_question}
     )
 
     return response.text
+def ask_pathpilot_career(job_description):
+    """Compare the user's profile against a job/internship description."""
+    from app.prompts import SYSTEM_PROMPT
+
+    user_data = build_user_context()
+    full_system_prompt = SYSTEM_PROMPT.format(user_data=user_data)
+
+    career_prompt = f"""Here is a job/internship description:
+
+---
+{job_description}
+---
+
+Compare this job description against the user's profile (skills, projects, certifications) provided in your context.
+
+Respond in this exact structure:
+
+MATCHES
+(List skills/requirements the user's profile already satisfies, with a checkmark)
+
+GAPS
+(List skills/requirements missing from the user's profile, with a warning symbol)
+
+PRIORITY
+(Rank the top 2-3 gaps that matter most, in order)
+
+NEXT ACTION
+(One concrete, actionable next step to close the top-priority gap)
+
+Do not exaggerate the user's qualifications. If a requirement is ambiguous or partially met, say so honestly.
+"""
+
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=career_prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=full_system_prompt
+        )
+    )
+
+    return response.text
