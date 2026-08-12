@@ -1,0 +1,16 @@
+Computer Networks - TCP vs UDP
+
+TCP (Transmission Control Protocol):
+- Connection-oriented protocol
+- Guarantees delivery of data in order
+- Uses handshake (SYN, SYN-ACK, ACK) to establish connection
+- Slower due to error checking and retransmission
+- Used in: web browsing (HTTP), email, file transfer
+
+UDP (User Datagram Protocol):
+- Connectionless protocol
+- No guarantee of delivery or order
+- Faster because no handshake or error correction
+- Used in: video streaming, online gaming, DNS lookups
+
+Key difference: TCP prioritizes reliability, UDP prioritizes speed.

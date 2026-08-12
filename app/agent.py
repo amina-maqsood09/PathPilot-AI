@@ -42,3 +42,30 @@ def ask_pathpilot(user_question):
     )
 
     return response.text
+def ask_pathpilot_with_notes(user_question, note_content):
+    """Send a question to Gemini along with specific note content and profile/memory context."""
+    from app.prompts import SYSTEM_PROMPT
+
+    user_data = build_user_context()
+    full_system_prompt = SYSTEM_PROMPT.format(user_data=user_data)
+
+    combined_prompt = f"""Here is study material provided by the user:
+
+---
+{note_content}
+---
+
+Base your answer primarily on this material. If the material doesn't cover something, say so clearly rather than inventing information.
+
+User's question: {user_question}
+"""
+
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=combined_prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=full_system_prompt
+        )
+    )
+
+    return response.text
