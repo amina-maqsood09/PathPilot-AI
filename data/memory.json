@@ -1,5 +1,14 @@
 {
-    "weak_topics": [],
-    "strong_topics": [],
-    "mistakes": []
+  "weak_topics": [],
+  "strong_topics": [],
+  "mistakes": [
+    {
+      "topic": "JavaScript",
+      "concept": "Promises",
+      "attempts": 1,
+      "correct": 0,
+      "last_reviewed": "2026-08-11",
+      "status": "needs_revision"
+    }
+  ]
 }

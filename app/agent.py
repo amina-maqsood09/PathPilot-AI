@@ -1,10 +1,10 @@
 import json
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from app.config import GEMINI_API_KEY, MODEL_NAME
-from app.prompts import SYSTEM_PROMPT
 
-# Configure Gemini with our API key
-genai.configure(api_key=GEMINI_API_KEY)
+# Create the Gemini client
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 
 def load_json(file_path):
@@ -28,15 +28,17 @@ def build_user_context():
 
 def ask_pathpilot(user_question):
     """Send the user's question to Gemini along with their personal context."""
+    from app.prompts import SYSTEM_PROMPT
+
     user_data = build_user_context()
+    full_system_prompt = SYSTEM_PROMPT.format(user_data=user_data)
 
-    full_prompt = SYSTEM_PROMPT.format(user_data=user_data)
-
-    model = genai.GenerativeModel(
-        model_name=MODEL_NAME,
-        system_instruction=full_prompt
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=user_question,
+        config=types.GenerateContentConfig(
+            system_instruction=full_system_prompt
+        )
     )
-
-    response = model.generate_content(user_question)
 
     return response.text
