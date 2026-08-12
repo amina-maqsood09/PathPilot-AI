@@ -1,4 +1,4 @@
-from app.agent import ask_pathpilot, ask_pathpilot_with_notes, ask_pathpilot_career
+from app.agent import ask_pathpilot, ask_pathpilot_with_notes, ask_pathpilot_career, ask_pathpilot_skillgap
 from app.memory import record_mistake, mark_as_improved, get_weak_topics
 from app.study import list_notes, load_note
 from app.career import list_job_descriptions, load_job_description
@@ -12,6 +12,7 @@ def print_help():
     print("  'quiz: <filename>'                -> generate a quiz from a note")
     print("  'jobs'                           -> list available job descriptions")
     print("  'career: <filename>'             -> compare your profile against a job description")
+    print("  'skillgap: <skill1> vs <skill2>' -> compare two skills and get a priority recommendation")
     print("  'mistake: <topic> | <concept>'   -> log a mistake")
     print("  'improved: <topic> | <concept>'  -> mark a concept as improved")
     print("  'weak topics'                    -> list current weak topics")
@@ -128,6 +129,18 @@ def main():
 
             print("\nPathPilot is analyzing this opportunity...\n")
             answer = ask_pathpilot_career(job_desc)
+            print(f"PathPilot: {answer}\n")
+            continue
+
+        if user_input.lower().startswith("skillgap:"):
+            content = user_input.split("skillgap:", 1)[1].strip()
+            if " vs " not in content.lower():
+                print("\nFormat: skillgap: <skill1> vs <skill2>\n")
+                continue
+
+            skills = [s.strip() for s in content.split(" vs ")]
+            print("\nPathPilot is comparing your options...\n")
+            answer = ask_pathpilot_skillgap(skills)
             print(f"PathPilot: {answer}\n")
             continue
 

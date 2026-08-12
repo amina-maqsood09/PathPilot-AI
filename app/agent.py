@@ -110,3 +110,42 @@ Do not exaggerate the user's qualifications. If a requirement is ambiguous or pa
     )
 
     return response.text
+def ask_pathpilot_skillgap(skill_options):
+    """Compare multiple skill options and recommend which to prioritize next."""
+    from app.prompts import SYSTEM_PROMPT
+
+    user_data = build_user_context()
+    full_system_prompt = SYSTEM_PROMPT.format(user_data=user_data)
+
+    options_text = ", ".join(skill_options)
+
+    skillgap_prompt = f"""The user is deciding what to learn next and is considering these options: {options_text}
+
+Using the user's profile (career goal, target roles, current skills, projects) and memory (weak topics, learning progress), compare these options and recommend ONE as the highest priority.
+
+Respond in this exact structure:
+
+RECOMMENDED SKILL
+(The single skill you recommend learning next)
+
+REASON
+(Explain why this beats the other option(s), grounded in the user's actual profile/goals/gaps — do not invent evidence)
+
+SUGGESTED LEARNING ACTION
+(One concrete first step to start learning it)
+
+OPTIONAL MINI-PROJECT
+(A small practice project idea to apply this skill)
+
+Be direct and avoid a long generic roadmap — this should be a clear, prioritized recommendation.
+"""
+
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=skillgap_prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=full_system_prompt
+        )
+    )
+
+    return response.text
