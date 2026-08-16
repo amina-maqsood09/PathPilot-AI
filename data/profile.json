@@ -1,26 +1,26 @@
 {
-    "name": "Amna",
-    "education": "BS Software Engineering, COMSATS University Islamabad, Vehari Campus",
-    "semester": "2nd Year",
-    "skills": [
-        "Python",
-        "HTML/CSS",
-        "JavaScript",
-        "React basics",
-        "Git/GitHub"
-    ],
-    "projects": [
-        "Portfolio website",
-        "Smart Study Planner AI Agent",
-        "SaaS landing page demo"
-    ],
-    "certifications": [
-        "Anthropic Academy courses (6 certificates)"
-    ],
-    "career_goal": "AI/Frontend Engineer",
-    "target_roles": [
-        "Frontend AI Engineer",
-        "AI/ML Engineer"
-    ],
-    "available_study_time_per_day": "2 hours"
+  "name": "Amna",
+  "education": "BS Software Engineering, COMSATS University Islamabad, Vehari Campus",
+  "semester": "2nd Year",
+  "skills": [
+    "Python",
+    "HTML/CSS",
+    "JavaScript",
+    "React basics",
+    "Git/GitHub"
+  ],
+  "projects": [
+    "Portfolio website",
+    "Smart Study Planner AI Agent",
+    "SaaS landing page demo"
+  ],
+  "certifications": [
+    "Anthropic Academy courses (6 certificates)"
+  ],
+  "career_goal": "AI/Frontend Engineer",
+  "target_roles": [
+    "Frontend AI Engineer",
+    "AI/ML Engineer"
+  ],
+  "available_study_time_per_day": "2 hours"
 }
